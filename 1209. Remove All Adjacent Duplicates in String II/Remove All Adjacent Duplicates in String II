@@ -1,0 +1,50 @@
+Step 1: store each character into stack with their continuous frequency.
+Step 2: if frequency of top character of the stack is equal to k then delete top k characters from the stack
+Step 3: At the end pop out characters from stack to a string, reverse it and return as final answer.
+
+---------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+
+string removeDuplicates(string s, int k) {
+   int n=s.length();
+   if(n==0)
+       return "";
+    stack<pair<char,int>>st;
+    for(int i=0;i<n;i++)
+    {
+        if(st.empty())
+        {
+            st.push({s[i],1});
+        }
+        else if(st.top().first!=s[i])
+        {
+            st.push({s[i],1});
+        }
+        else if(st.top().first==s[i])
+        {
+            int freq=st.top().second;
+            st.push({s[i],freq+1});
+        }
+        
+        if(st.top().second==k)
+        {
+            int freq=st.top().second;
+            while(!st.empty()&&freq!=0)
+            {
+                st.pop();
+                freq--;
+            }
+        }
+    }
+    string ans="";
+    while(!st.empty())
+    {
+        ans+=st.top().first;
+        st.pop();
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+};
