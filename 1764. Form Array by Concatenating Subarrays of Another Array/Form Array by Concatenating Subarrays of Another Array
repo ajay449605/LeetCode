@@ -1,0 +1,60 @@
+Step 1: Initialize variables count=0, index =0 and check every single array of group is subarray of num:
+a): if yes then count++ and store the last position into index variable of the nums and proceed next array of group with index+1 of num array
+b): if not then return false.
+Step 2: Proceed step 1 for all rows of group and at last return true if count==group.size() else false.
+-----------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+
+bool isSubArray(vector<int>&groupArray,int m,vector<int>&nums,int n,int &index)
+{
+    int i=index,j=0;
+    while(i<n&&j<m)
+    {
+        if(groupArray[j]==nums[i])
+        {
+            i++;
+            j++;
+            if(j==m)
+            {
+                index=i;
+                 return true;
+            }   
+        }
+        else
+        {
+            i=i-j+1;
+            j=0;
+        }
+    }
+    index=i;
+    return false;
+}
+
+bool canChoose(vector<vector<int>>& groups, vector<int>& nums) {
+    int row=groups.size();
+    
+    int n=nums.size();
+    vector<int>groupArray;
+    int count=0;
+    int index=0;
+    for(int i=index;i<row;i++)
+    {
+        for(int j=0;j<groups[i].size();j++)
+        {
+            groupArray.push_back(groups[i][j]);
+        }
+        if(isSubArray(groupArray,groupArray.size(),nums,n,index))
+        {
+            count++;
+        }
+        groupArray.clear();
+        if(index==n)
+            break;
+    }
+    if(count==row)
+        return true;
+    return false;
+}
+};
