@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        int n=digits.length();
+        map<int,string>mp;
+        mp[2]="abc";
+        mp[3]="def";
+        mp[4]="ghi";
+        mp[5]="jkl";
+        mp[6]="mno";
+        mp[7]="pqrs";
+        mp[8]="tuv";
+        mp[9]="wxyz";
+  
+        
+        vector<string>ans;
+        string s1=mp[(int)(digits[0]-'0')];
+        for(int i=0;i<s1.length();i++)
+        {
+            string str="";
+            str.push_back(s1[i]);
+            if(str.length()==n)
+            {
+                ans.push_back(str);
+                str.pop_back();
+                continue;
+            } 
+             string s2=mp[(int)(digits[1]-'0')];
+            for(int j=0;j<s2.length();j++)
+            {
+                str.push_back(s2[j]);
+                if(str.length()==n)
+                {
+                    ans.push_back(str);
+                    str.pop_back();
+                    continue;
+                }
+                 string s3=mp[(int)(digits[2]-'0')];
+                for(int k=0;k<s3.length();k++)
+                {
+                    str.push_back(s3[k]);
+                    if(str.length()==n)
+                    {
+                        ans.push_back(str);
+                        str.pop_back();
+                        continue;
+                    }
+                     string s4=mp[(int)(digits[3]-'0')];
+                    for(int l=0;l<s4.length();l++)
+                    {
+                        str.push_back(s4[l]);
+                        if(str.length()==n)
+                        {
+                            ans.push_back(str);
+                            str.pop_back();
+                        }
+                    }
+                    str.pop_back();
+                }
+                str.pop_back();
+            }
+            str.pop_back();
+        }
+        return ans;
+    }
+};
