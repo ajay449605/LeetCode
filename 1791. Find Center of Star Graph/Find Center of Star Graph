@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+      int n=edges.size();
+        int maxEdges=INT_MIN;
+        map<int,vector<int>>graph;
+        for(int i=0;i<n;i++)
+        {
+            maxEdges=max(maxEdges,edges[i][0]);
+            maxEdges=max(maxEdges,edges[i][1]);
+            graph[edges[i][0]].push_back(edges[i][1]);
+            graph[edges[i][1]].push_back(edges[i][0]);
+        }
+        for(auto it=graph.begin();it!=graph.end();it++)
+        {
+            if(it->second.size()==maxEdges-1)
+                return it->first;
+        }
+        return -1;
+    }
+};
